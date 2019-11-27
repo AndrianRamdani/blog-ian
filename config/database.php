@@ -20,3 +20,8 @@ class Database
 }
 
 $db = new Database();
+
+//artikel
+include 'artikel.php';
+//kategori
+include 'kategori.php';
