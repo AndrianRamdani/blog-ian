@@ -6,7 +6,7 @@ if (!$_SESSION['login']) {
             window.location = '/login.php'
         </script>";
 } else {
-    include '../../config/database.php';
+    include '../../config/koneksi.php';
     $user = new Database();
     $user = mysqli_query($user->koneksi, 
     "select * from users where password='$_SESSION[login]'");
@@ -31,14 +31,17 @@ if (!$_SESSION['login']) {
             <div class="col-12" style="padding:20px;">
               <div class="card">
                 <div class="card-header">Data Kategori</div>
+                <?php include 'create.php'; ?>
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table" id="data-table">
+                  <button type="button" class="btn btn-sm btn-outline-danger float-md-center col-md-12" data-toggle="modal" data-target=".kategori">Tambah</b>                    
                       <thead>
                         <tr>
                             <th>No</th>
                             <th>Nama Kategori</th>
                             <th>Slug</th>
+                            <th>Aksi</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -51,7 +54,14 @@ if (!$_SESSION['login']) {
                               <td><?php echo $no++ ; ?></td>
                               <td><?php echo $data['nama']; ?></td>
                               <td><?php echo $data['slug']; ?></td>
+                              <td>
+                                <a href="/admin/kategori/proses.php?id=<?php echo $data['id']; ?>&aksi=delete" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda Yakin ?')">Delete</a> |
+                                <a href="/admin/kategori/show.php?id=<?php echo $data['id']; ?>" class="btn btn-sm btn-warning">Show</a> |
+                                <button type="button" class="btn btn-sm btn-success btn-outline" data-toggle="modal" data-target=".kategori-<?php echo $data['id']; ?>">Edit</button>
+                              </td>
                           </tr>
+                        <?php include 'edit.php';?>
+                        <?php include 'show.php';?>
                         <?php } ?>
                       </tbody>
                     </table>

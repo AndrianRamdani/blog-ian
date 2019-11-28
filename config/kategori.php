@@ -4,7 +4,10 @@ class Kategori extends Database
     // Menampilkan Semua Data
     public function index()
     {
-        $datakategori = mysqli_query($this->koneksi, "select * from kategori");
+        $datakategori = mysqli_query(
+            $this->koneksi,
+            "select * from kategori"
+        );
         // var_dump($datakategori);
         return $datakategori;
     }
@@ -45,7 +48,6 @@ class Kategori extends Database
     // menghapus data berdasarkan id
     public function delete($id)
     {
-        mysqli_query(
-$this->koneksi, "delete from kategori where id='$id'");
+        mysqli_query($this->koneksi, "delete from kategori where id='$id'");
     }
 }
