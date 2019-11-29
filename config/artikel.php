@@ -4,12 +4,13 @@ class Artikel extends Database
     // Menampilkan Semua Data
     public function index()
     {
-        $data_artikel = mysqli_query($this->koneksi, 
-        "SELECT artikel.id, artikel.judul, artikel.foto,
-        artikel.tgl, artikel.slug, kategori.nama as nama_kategori,
-        users.nama FROM ((artikel JOIN kategori ON kategori.id = 
-        artikel.id_kategori) 
-        JOIN users ON users.id = artikel.id_user)"
+        $data_artikel = mysqli_query(
+            $this->koneksi,
+            "SELECT artikel.id, artikel.judul, artikel.foto, 
+            artikel.tgl, artikel.slug, kategori.nama as nama_kategori, 
+            users.nama FROM ((artikel JOIN kategori ON kategori.id = 
+            artikel.id_kategori) 
+            JOIN users ON users.id = artikel.id_user)"
         );
         // var_dump($data_artikel);
         return $data_artikel;
@@ -21,11 +22,19 @@ class Artikel extends Database
         return $kategori;
     }
     // Menambah Data
-    public function create($judul, $slug, $konten, $foto, $tgl, $id_user, $id_kategori)
-    {
+    public function create(
+        $judul,
+        $slug,
+        $konten,
+        $foto,
+        $tgl,
+        $id_user,
+        $id_kategori
+    ) {
         mysqli_query(
             $this->koneksi,
-            "insert into artikel values(null,'$judul', '$slug','$konten', '$foto', '$tgl', '$id_user','$id_kategori' )"
+            "insert into artikel values(null,'$judul','$slug', '$konten', 
+            '$foto', '$tgl','$id_user',  '$id_kategori')"
         );
     }
     // Menampilkan Data Berdasarkan ID
@@ -33,7 +42,9 @@ class Artikel extends Database
     {
         $data_artikel = mysqli_query(
             $this->koneksi,
-            "select * from artikel where id='$id'"
+            "SELECT artikel.id, artikel.judul, artikel.foto,artikel.konten, artikel.tgl, artikel.slug, kategori.nama as nama_kategori, 
+            users.nama as nama_penulis FROM ((artikel JOIN kategori ON kategori.id = artikel.id_kategori)
+            JOIN users ON users.id = artikel.id_user) where artikel.id='$id'"
         );
         return $data_artikel;
     }
@@ -47,17 +58,19 @@ class Artikel extends Database
         return $data_artikel;
     }
     // mengupdate data berdasarkan id
-    public function update($id, $judul, $slug, $konten, $foto, $tgl,  $id_user, $id_kategori)
+    public function update($id, $judul, $slug, $konten, $foto, $tgl, $id_user,  $id_kategori)
     {
         mysqli_query(
             $this->koneksi,
-            "update artikel set judul='$judul', slug='$slug', konten='$konten', foto='$foto',
-            tgl='$tgl', id_user='$id_user', id_kategori='$id_kategori' where id='$id'"
+            "update artikel set judul='$judul', slug='$slug', 
+            konten='$konten', foto='$foto', tgl='$tgl', id_user='$id_user',
+            id_kategori='$id_kategori' where id='$id'"
         );
     }
     // menghapus data berdasarkan id
     public function delete($id)
     {
-        mysqli_query($this->koneksi, "delete from artikel where id='$id'");
+        mysqli_query($this->koneksi, "delete from artikel whe
+re id='$id'");
     }
 }

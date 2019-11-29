@@ -1,7 +1,16 @@
 <?php
+session_start();
 include '../../config/koneksi.php';
 $artikel = new Artikel();
 $aksi = $_GET['aksi'];
+//Memanggil User loger yang akan dijadi penulis
+$user = new Database();
+$user = mysqli_query(
+    $user->koneksi,
+    "select * from users where password='$_SESSION[login]'"
+);
+$user = mysqli_fetch_array($user);
+
 if (isset($_POST['save'])) {
     $id = $_POST['id'];
     $judul = $_POST['judul'];
@@ -9,7 +18,7 @@ if (isset($_POST['save'])) {
     $tgl = date('Y-m-d');
     $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($_POST["judul"])));
     $id_kategori = $_POST['id_kategori'];
-    $id_user = $_POST['id_user'];
+    $id_user = $user['id'];
     $fotoLama = $_POST['fotoLama'];
     // upload image
     function upload()

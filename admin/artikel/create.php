@@ -81,7 +81,6 @@ if (!$_SESSION['login']) {
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <input type="hidden" name="id_user" value="<?php echo $user['id'] ?>">
                                             <button type="submit" name="save" class="btn btn-primary btn-block">Simpan Data</button>
                                         </div>
                                     </form>
